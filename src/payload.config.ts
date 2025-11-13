@@ -9,14 +9,24 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 
-// --- 1. AÑADE ESTAS IMPORTACIONES ---
-import { Posts } from './collections/Posts'
-import { Categories } from './collections/Categories'
-import { Authors } from './collections/Authors'
-// ---
-
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+// --- DEBUG POSTGRES ---
+console.log('🔍 DATABASE_URL:', process.env.DATABASE_URL)
+console.log('🔍 DB_HOST:', process.env.DB_HOST)
+console.log('🔍 DB_USER:', process.env.DB_USER)
+console.log('🔍 DB_PORT:', process.env.DB_PORT)
+console.log('🔍 DB_NAME:', process.env.DB_NAME)
+console.log('🔍 DB_PASSWORD:', process.env.DB_PASSWORD ? '***' : '(undefined)')
+
+const connectionStringDebug =
+  process.env.DATABASE_URL ??
+  `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}` +
+    `@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?sslmode=require`
+
+console.log('🔍 FINAL CONNECTION STRING →', connectionStringDebug)
+console.log('----------------------------------------------')
 
 export default buildConfig({
   admin: {
@@ -25,21 +35,20 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-
-  // --- 2. AÑADE LAS COLECCIONES AL ARRAY ---
-  collections: [Posts, Categories, Authors, Media, Users],
-  // ---
-
+  collections: [Users, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: connectionStringDebug,
     },
+    schemaName: 'payload',
   }),
+
   sharp,
   plugins: [
     // storage-adapter-placeholder
