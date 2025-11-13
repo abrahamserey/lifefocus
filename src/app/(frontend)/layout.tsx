@@ -1,19 +1,33 @@
-import React from 'react'
-import './styles.css'
+import '@/styles/tailwind.css'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+export const metadata: Metadata = {
+  title: {
+    template: '%s - Radiant',
+    default: 'Radiant - Close every deal',
+  },
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
-
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
     <html lang="en">
-      <body>
-        <main>{children}</main>
-      </body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://api.fontshare.com/css?f%5B%5D=switzer@400,500,600,700&amp;display=swap"
+        />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="The Radiant Blog"
+          href="/blog/feed.xml"
+        />
+      </head>
+      <body className="text-gray-950 antialiased">{children}</body>
     </html>
   )
 }
