@@ -29,22 +29,19 @@ const testimonials = [
     img: '/testimonials/conor-neville.jpg',
     name: 'Conor Neville',
     title: 'Head of Customer Success, TaxPal',
-    quote:
-      'Radiant made undercutting all of our competitors an absolute breeze.',
+    quote: 'Radiant made undercutting all of our competitors an absolute breeze.',
   },
   {
     img: '/testimonials/amy-chase.jpg',
     name: 'Amy Chase',
     title: 'Head of GTM, Pocket',
-    quote:
-      'We closed a deal in literally a few minutes because we knew their exact budget.',
+    quote: 'We closed a deal in literally a few minutes because we knew their exact budget.',
   },
   {
     img: '/testimonials/veronica-winton.jpg',
     name: 'Veronica Winton',
     title: 'CSO, Planeteria',
-    quote:
-      'We’ve managed to put two of our main competitors out of business in 6 months.',
+    quote: 'We’ve managed to put two of our main competitors out of business in 6 months.',
   },
   {
     img: '/testimonials/dillon-lenora.jpg',
@@ -56,8 +53,7 @@ const testimonials = [
     img: '/testimonials/harriet-arron.jpg',
     name: 'Harriet Arron',
     title: 'Account Manager, Commit',
-    quote:
-      'I’ve smashed all my targets without having to speak to a lead in months.',
+    quote: 'I’ve smashed all my targets without having to speak to a lead in months.',
   },
 ]
 
@@ -77,28 +73,28 @@ function TestimonialCard({
   bounds: RectReadOnly
   scrollX: MotionValue<number>
 } & HTMLMotionProps<'div'>) {
-  let ref = useRef<HTMLDivElement | null>(null)
+  const ref = useRef<HTMLDivElement | null>(null)
 
-  let computeOpacity = useCallback(() => {
-    let element = ref.current
+  const computeOpacity = useCallback(() => {
+    const element = ref.current
     if (!element || bounds.width === 0) return 1
 
-    let rect = element.getBoundingClientRect()
+    const rect = element.getBoundingClientRect()
 
     if (rect.left < bounds.left) {
-      let diff = bounds.left - rect.left
-      let percent = diff / rect.width
+      const diff = bounds.left - rect.left
+      const percent = diff / rect.width
       return Math.max(0.5, 1 - percent)
     } else if (rect.right > bounds.right) {
-      let diff = rect.right - bounds.right
-      let percent = diff / rect.width
+      const diff = rect.right - bounds.right
+      const percent = diff / rect.width
       return Math.max(0.5, 1 - percent)
     } else {
       return 1
     }
   }, [ref, bounds.width, bounds.left, bounds.right])
 
-  let opacity = useSpring(computeOpacity(), {
+  const opacity = useSpring(computeOpacity(), {
     stiffness: 154,
     damping: 23,
   })
@@ -156,8 +152,7 @@ function CallToAction() {
   return (
     <div>
       <p className="max-w-sm text-sm/6 text-gray-600">
-        Join the best sellers in the business and start using Radiant to hit
-        your targets today.
+        Join the best sellers in the business and start using Radiant to hit your targets today.
       </p>
       <div className="mt-2">
         <Link
@@ -173,18 +168,18 @@ function CallToAction() {
 }
 
 export function Testimonials() {
-  let scrollRef = useRef<HTMLDivElement | null>(null)
-  let { scrollX } = useScroll({ container: scrollRef })
-  let [setReferenceWindowRef, bounds] = useMeasure()
-  let [activeIndex, setActiveIndex] = useState(0)
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+  const { scrollX } = useScroll({ container: scrollRef })
+  const [setReferenceWindowRef, bounds] = useMeasure()
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useMotionValueEvent(scrollX, 'change', (x) => {
     setActiveIndex(Math.floor(x / scrollRef.current!.children[0].clientWidth))
   })
 
   function scrollTo(index: number) {
-    let gap = 32
-    let width = (scrollRef.current!.children[0] as HTMLElement).offsetWidth
+    const gap = 32
+    const width = (scrollRef.current!.children[0] as HTMLElement).offsetWidth
     scrollRef.current!.scrollTo({ left: (width + gap) * index })
   }
 
@@ -230,9 +225,7 @@ export function Testimonials() {
               <Headless.Button
                 key={testimonialIndex}
                 onClick={() => scrollTo(testimonialIndex)}
-                data-active={
-                  activeIndex === testimonialIndex ? true : undefined
-                }
+                data-active={activeIndex === testimonialIndex ? true : undefined}
                 aria-label={`Scroll to testimonial from ${name}`}
                 className={clsx(
                   'size-2.5 rounded-full border border-transparent bg-gray-300 transition',

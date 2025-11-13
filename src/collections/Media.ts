@@ -1,5 +1,5 @@
 // src/collections/Media.ts
-import { CollectionConfig } from 'payload/types'
+import { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -7,7 +7,6 @@ export const Media: CollectionConfig = {
     description: 'Archivos de medios (imágenes, PDFs, etc.).',
   },
   upload: {
-    staticURL: '/media',
     staticDir: 'media',
     imageSizes: [
       {

@@ -23,7 +23,7 @@ function Key({
   className?: string
   children?: React.ReactNode
 }) {
-  let { highlighted } = useContext(KeyboardContext)
+  const { highlighted } = useContext(KeyboardContext)
 
   return (
     <motion.div
@@ -68,10 +68,7 @@ function Key({
 
 function KeyGroup(props: { children: React.ReactNode }) {
   return (
-    <div
-      {...props}
-      className="grid gap-px rounded-sm bg-black/10 ring-1 ring-black/10 *:ring-0"
-    />
+    <div {...props} className="grid gap-px rounded-sm bg-black/10 ring-1 ring-black/10 *:ring-0" />
   )
 }
 
