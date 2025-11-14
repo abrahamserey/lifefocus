@@ -17,43 +17,49 @@ import { Container } from './container'
 import { Link } from './link'
 import { Heading, Subheading } from './text'
 
+// Testimonios actualizados para reflejar Foco, Productividad y Claridad (LifeFocus)
 const testimonials = [
   {
     img: '/testimonials/tina-yards.jpg',
-    name: 'Tina Yards',
-    title: 'VP of Sales, Protocol',
+    name: 'Elena Rodríguez',
+    title: 'Gerente de Proyectos, Protocol',
     quote:
-      'Thanks to Radiant, we’re finding new leads that we never would have found with legal methods.',
+      'Gracias a LifeFocus, finalmente logré balancear mis prioridades. Ahora sé exactamente dónde enfocar mi energía cada día para alcanzar mis metas.',
   },
   {
     img: '/testimonials/conor-neville.jpg',
-    name: 'Conor Neville',
-    title: 'Head of Customer Success, TaxPal',
-    quote: 'Radiant made undercutting all of our competitors an absolute breeze.',
+    name: 'David Neville',
+    title: 'Líder de Desarrollo Personal, TaxPal',
+    quote:
+      'El sistema LifeFocus ha hecho que la gestión de mi tiempo sea un proceso claro y efectivo. He ganado dos horas de productividad diarias.',
   },
   {
     img: '/testimonials/amy-chase.jpg',
-    name: 'Amy Chase',
-    title: 'Head of GTM, Pocket',
-    quote: 'We closed a deal in literally a few minutes because we knew their exact budget.',
+    name: 'Sofía Chávez',
+    title: 'Consultora de Marca, Pocket',
+    quote:
+      'Pude definir mi visión a largo plazo en minutos gracias a las herramientas de enfoque. Esto eliminó la dispersión en mi negocio.',
   },
   {
     img: '/testimonials/veronica-winton.jpg',
-    name: 'Veronica Winton',
-    title: 'CSO, Planeteria',
-    quote: 'We’ve managed to put two of our main competitors out of business in 6 months.',
+    name: 'Martín Winton',
+    title: 'Director de Innovación, Planeteria',
+    quote:
+      'Hemos logrado una claridad mental en el equipo sin precedentes en 6 meses. La estrategia de LifeFocus es clave para la ejecución.',
   },
   {
     img: '/testimonials/dillon-lenora.jpg',
-    name: 'Dillon Lenora',
-    title: 'VP of Sales, Detax',
-    quote: 'I was able to replace 80% of my team with RadiantAI bots.',
+    name: 'Luisa Dilon',
+    title: 'CEO, Detax',
+    quote:
+      'Pude reemplazar el 80% de mi estrés con rutinas de alta efectividad gracias al método LifeFocus.',
   },
   {
     img: '/testimonials/harriet-arron.jpg',
-    name: 'Harriet Arron',
-    title: 'Account Manager, Commit',
-    quote: 'I’ve smashed all my targets without having to speak to a lead in months.',
+    name: 'Héctor Aarón',
+    title: 'Estratega de Producto, Commit',
+    quote:
+      'He cumplido todos mis objetivos sin sentirme abrumado en meses. LifeFocus te devuelve el control.',
   },
 ]
 
@@ -151,15 +157,17 @@ function TestimonialCard({
 function CallToAction() {
   return (
     <div>
+      {/* Texto actualizado para LifeFocus */}
       <p className="max-w-sm text-sm/6 text-gray-600">
-        Join the best sellers in the business and start using Radiant to hit your targets today.
+        Únase a miles de profesionales que han recuperado su tiempo y claridad con la metodología de
+        LifeFocus.
       </p>
       <div className="mt-2">
         <Link
           href="#"
           className="inline-flex items-center gap-2 text-sm/6 font-medium text-pink-600"
         >
-          Get started
+          Comenzar ahora
           <ArrowLongRightIcon className="size-5" />
         </Link>
       </div>
@@ -187,9 +195,9 @@ export function Testimonials() {
     <div className="overflow-hidden py-32">
       <Container>
         <div ref={setReferenceWindowRef}>
-          <Subheading>What everyone is saying</Subheading>
+          <Subheading>Lo que dicen nuestros usuarios</Subheading>
           <Heading as="h3" className="mt-2">
-            Trusted by professionals.
+            Con la confianza de profesionales de alto rendimiento.
           </Heading>
         </div>
       </Container>
@@ -226,7 +234,7 @@ export function Testimonials() {
                 key={testimonialIndex}
                 onClick={() => scrollTo(testimonialIndex)}
                 data-active={activeIndex === testimonialIndex ? true : undefined}
-                aria-label={`Scroll to testimonial from ${name}`}
+                aria-label={`Desplazarse al testimonio de ${name}`}
                 className={clsx(
                   'size-2.5 rounded-full border border-transparent bg-gray-300 transition',
                   'data-active:bg-gray-400 data-hover:bg-gray-400',

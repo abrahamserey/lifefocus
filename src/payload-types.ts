@@ -67,11 +67,11 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    posts: Post;
-    categories: Category;
-    authors: Author;
-    media: Media;
     users: User;
+    media: Media;
+    authors: Author;
+    categories: Category;
+    posts: Post;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -79,11 +79,11 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    posts: PostsSelect<false> | PostsSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
-    authors: AuthorsSelect<false> | AuthorsSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -92,8 +92,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'home-page': HomePage;
+  };
+  globalsSelect: {
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -122,46 +126,28 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Artículos del blog.
- *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "users".
  */
-export interface Post {
+export interface User {
   id: number;
-  title: string;
-  mainImage: number | Media;
-  /**
-   * Un resumen corto para SEO y vistas previas. (Tu "meta ad")
-   */
-  excerpt: string;
-  body: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  slug: string;
-  /**
-   * Los artículos privados solo son visibles para usuarios autenticados.
-   */
-  isPrivate?: boolean | null;
-  publishedAt: string;
-  isFeatured?: boolean | null;
-  author: number | Author;
-  categories: (number | Category)[];
   updatedAt: string;
   createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
 }
 /**
  * Archivos de medios (imágenes, PDFs, etc.).
@@ -243,28 +229,46 @@ export interface Category {
   createdAt: string;
 }
 /**
+ * Artículos del blog.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "posts".
  */
-export interface User {
+export interface Post {
   id: number;
+  title: string;
+  mainImage: number | Media;
+  /**
+   * Un resumen corto para SEO y vistas previas. (Tu "meta ad")
+   */
+  excerpt: string;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  slug: string;
+  /**
+   * Los artículos privados solo son visibles para usuarios autenticados.
+   */
+  isPrivate?: boolean | null;
+  publishedAt: string;
+  isFeatured?: boolean | null;
+  author: number | Author;
+  categories: (number | Category)[];
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -291,24 +295,24 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'posts';
-        value: number | Post;
-      } | null)
-    | ({
-        relationTo: 'categories';
-        value: number | Category;
-      } | null)
-    | ({
-        relationTo: 'authors';
-        value: number | Author;
+        relationTo: 'users';
+        value: number | User;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'authors';
+        value: number | Author;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -354,42 +358,25 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "users_select".
  */
-export interface PostsSelect<T extends boolean = true> {
-  title?: T;
-  mainImage?: T;
-  excerpt?: T;
-  body?: T;
-  slug?: T;
-  isPrivate?: T;
-  publishedAt?: T;
-  isFeatured?: T;
-  author?: T;
-  categories?: T;
+export interface UsersSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
- */
-export interface CategoriesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors_select".
- */
-export interface AuthorsSelect<T extends boolean = true> {
-  name?: T;
-  image?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -445,25 +432,42 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "authors_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  mainImage?: T;
+  excerpt?: T;
+  body?: T;
+  slug?: T;
+  isPrivate?: T;
+  publishedAt?: T;
+  isFeatured?: T;
+  author?: T;
+  categories?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -504,6 +508,124 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: number;
+  metadata: {
+    description: string;
+  };
+  hero: {
+    banner_link_text: string;
+    banner_link_url: string;
+    heading: string;
+    subheading: string;
+    primary_button_text: string;
+    primary_button_url: string;
+    secondary_button_text: string;
+    secondary_button_url: string;
+  };
+  feature_section: {
+    heading: string;
+    screenshot_image: number | Media;
+  };
+  bento_section: {
+    subheading: string;
+    heading: string;
+    bento_cards?:
+      | {
+          eyebrow: string;
+          title: string;
+          description: string;
+          graphic_type?: ('background_image' | 'component') | null;
+          background_image?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  dark_bento_section: {
+    subheading: string;
+    heading: string;
+    bento_cards?:
+      | {
+          eyebrow: string;
+          title: string;
+          description: string;
+          graphic_type?: ('background_image' | 'component') | null;
+          background_image?: (number | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  metadata?:
+    | T
+    | {
+        description?: T;
+      };
+  hero?:
+    | T
+    | {
+        banner_link_text?: T;
+        banner_link_url?: T;
+        heading?: T;
+        subheading?: T;
+        primary_button_text?: T;
+        primary_button_url?: T;
+        secondary_button_text?: T;
+        secondary_button_url?: T;
+      };
+  feature_section?:
+    | T
+    | {
+        heading?: T;
+        screenshot_image?: T;
+      };
+  bento_section?:
+    | T
+    | {
+        subheading?: T;
+        heading?: T;
+        bento_cards?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              graphic_type?: T;
+              background_image?: T;
+              id?: T;
+            };
+      };
+  dark_bento_section?:
+    | T
+    | {
+        subheading?: T;
+        heading?: T;
+        bento_cards?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              graphic_type?: T;
+              background_image?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

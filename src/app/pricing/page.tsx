@@ -12,95 +12,171 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, MinusIcon } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 
+// --- DATOS DE LOS PLANES ACTUALIZADOS ---
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: 'Inversión Inteligente',
   description:
-    'Companies all over the world have closed millions of deals with Radiant. Sign up today and start selling smarter.',
+    'Nuestros planes de desarrollo web están diseñados para convertir tu inversión en ventas exponenciales. El mejor valor en Miami para empresarios latinos.',
 }
 
 const tiers = [
   {
-    name: 'Starter' as const,
+    name: 'Emprendedor' as const,
     slug: 'starter',
-    description: 'Everything you need to start selling.',
-    priceMonthly: 99,
+    description:
+      'El activo digital esencial para lanzar tu negocio en el competitivo mercado de Miami.',
+    priceMonthly: 2999,
     href: '#',
     highlights: [
-      { description: 'Up to 3 team members' },
-      { description: 'Up to 5 deal progress boards' },
-      { description: 'Source leads from select platforms' },
-      { description: 'RadiantAI integrations', disabled: true },
-      { description: 'Competitor analysis', disabled: true },
+      { description: 'Diseño de Landing Page de Alta Conversión (5 secciones)' },
+      { description: 'Estrategia de Branding Digital Base' },
+      { description: 'Hosting de Alto Rendimiento (1er año incluido)' },
+      { description: 'Optimización SEO Local y Velocidad' },
+      { description: 'Integración con CRM Básico (Hubspot, Mailchimp, o similar)' },
     ],
     features: [
-      { section: 'Features', name: 'Accounts', value: 3 },
-      { section: 'Features', name: 'Deal progress boards', value: 5 },
-      { section: 'Features', name: 'Sourcing platforms', value: 'Select' },
-      { section: 'Features', name: 'Contacts', value: 100 },
-      { section: 'Features', name: 'AI assisted outreach', value: false },
-      { section: 'Analysis', name: 'Competitor analysis', value: false },
-      { section: 'Analysis', name: 'Dashboard reporting', value: false },
-      { section: 'Analysis', name: 'Community insights', value: false },
-      { section: 'Analysis', name: 'Performance analysis', value: false },
-      { section: 'Support', name: 'Email support', value: true },
-      { section: 'Support', name: '24 / 7 call center support', value: false },
-      { section: 'Support', name: 'Dedicated account manager', value: false },
+      { section: 'Estrategia y Branding', name: 'Análisis de Competencia Base', value: true },
+      { section: 'Estrategia y Branding', name: 'Guía de Estilo y Marca', value: true },
+      { section: 'Estrategia y Branding', name: 'Consultoría Estratégica con CEO', value: false },
+
+      { section: 'Desarrollo y Hosting', name: 'Páginas/Secciones de Diseño', value: 5 },
+      {
+        section: 'Desarrollo y Hosting',
+        name: 'Hosting de Alta Velocidad (Años Incluidos)',
+        value: '1 año',
+      },
+      { section: 'Desarrollo y Hosting', name: 'Dominio y Certificado SSL Premium', value: true },
+
+      { section: 'Marketing y Ventas', name: 'Optimización SEO Local', value: true },
+      {
+        section: 'Marketing y Ventas',
+        name: 'Integración con Plataforma CRM/Ventas',
+        value: 'Básica',
+      },
+      { section: 'Marketing y Ventas', name: 'Campañas de Email Marketing', value: false },
+
+      {
+        section: 'Soporte y Garantías',
+        name: 'Garantía de Cero Errores (Post-Lanzamiento)',
+        value: true,
+      },
+      { section: 'Soporte y Garantías', name: 'Soporte Prioritario 24/7', value: false },
+      { section: 'Soporte y Garantías', name: 'Gerente de Cuenta Dedicado', value: false },
+      {
+        section: 'Soporte y Garantías',
+        name: 'Auditoría de Rendimiento Anual Gratuita',
+        value: false,
+      },
     ],
   },
   {
-    name: 'Growth' as const,
+    name: 'Empresarial' as const,
     slug: 'growth',
-    description: 'All the extras for your growing team.',
-    priceMonthly: 149,
+    description:
+      'La solución robusta para escalar ventas, ideal para negocios establecidos que buscan expandirse.',
+    priceMonthly: 4999,
     href: '#',
     highlights: [
-      { description: 'Up to 10 team members' },
-      { description: 'Unlimited deal progress boards' },
-      { description: 'Source leads from over 50 verified platforms' },
-      { description: 'RadiantAI integrations' },
-      { description: '5 competitor analyses per month' },
+      { description: 'Sitio Web Completo (10-15 secciones)' },
+      { description: 'Estrategia de Ventas Digital y Funnel' },
+      { description: 'Hosting Dedicado de Alto Rendimiento (2 años incluido)' },
+      { description: 'Garantía de Posicionamiento SEO Local' },
+      { description: 'Integración con Plataformas de Ventas y ERP' },
     ],
     features: [
-      { section: 'Features', name: 'Accounts', value: 10 },
-      { section: 'Features', name: 'Deal progress boards', value: 'Unlimited' },
-      { section: 'Features', name: 'Sourcing platforms', value: '100+' },
-      { section: 'Features', name: 'Contacts', value: 1000 },
-      { section: 'Features', name: 'AI assisted outreach', value: true },
-      { section: 'Analysis', name: 'Competitor analysis', value: '5 / month' },
-      { section: 'Analysis', name: 'Dashboard reporting', value: true },
-      { section: 'Analysis', name: 'Community insights', value: true },
-      { section: 'Analysis', name: 'Performance analysis', value: true },
-      { section: 'Support', name: 'Email support', value: true },
-      { section: 'Support', name: '24 / 7 call center support', value: true },
-      { section: 'Support', name: 'Dedicated account manager', value: false },
+      { section: 'Estrategia y Branding', name: 'Análisis de Competencia Base', value: true },
+      { section: 'Estrategia y Branding', name: 'Guía de Estilo y Marca', value: true },
+      {
+        section: 'Estrategia y Branding',
+        name: 'Consultoría Estratégica con CEO',
+        value: '1 Sesión',
+      },
+
+      { section: 'Desarrollo y Hosting', name: 'Páginas/Secciones de Diseño', value: '10-15' },
+      {
+        section: 'Desarrollo y Hosting',
+        name: 'Hosting de Alta Velocidad (Años Incluidos)',
+        value: '2 años',
+      },
+      { section: 'Desarrollo y Hosting', name: 'Dominio y Certificado SSL Premium', value: true },
+
+      { section: 'Marketing y Ventas', name: 'Optimización SEO Local', value: true },
+      {
+        section: 'Marketing y Ventas',
+        name: 'Integración con Plataforma CRM/Ventas',
+        value: 'Avanzada',
+      },
+      { section: 'Marketing y Ventas', name: 'Campañas de Email Marketing', value: 'Básico' },
+
+      {
+        section: 'Soporte y Garantías',
+        name: 'Garantía de Cero Errores (Post-Lanzamiento)',
+        value: true,
+      },
+      { section: 'Soporte y Garantías', name: 'Soporte Prioritario 24/7', value: true },
+      { section: 'Soporte y Garantías', name: 'Gerente de Cuenta Dedicado', value: false },
+      {
+        section: 'Soporte y Garantías',
+        name: 'Auditoría de Rendimiento Anual Gratuita',
+        value: false,
+      },
     ],
   },
   {
-    name: 'Enterprise' as const,
+    name: 'Élite' as const,
     slug: 'enterprise',
-    description: 'Added flexibility to close deals at scale.',
-    priceMonthly: 299,
+    description:
+      'Máximo rendimiento, diseño exclusivo y consultoría estratégica para líderes que dominan su nicho.',
+    priceMonthly: 8999,
     href: '#',
     highlights: [
-      { description: 'Unlimited active team members' },
-      { description: 'Unlimited deal progress boards' },
-      { description: 'Source leads from over 100 verified platforms' },
-      { description: 'RadiantAI integrations' },
-      { description: 'Unlimited competitor analyses' },
+      { description: 'Plataforma Digital a Medida (E-commerce/SAAS - Páginas Ilimitadas)' },
+      { description: 'Estrategia Anual de Crecimiento y Marketing' },
+      { description: 'Hosting y CDN Global (3 años incluido)' },
+      { description: 'Garantía de Posicionamiento en Competencia Directa' },
+      { description: '6 Sesiones de Consultoría con el CEO (Primer Año)' },
     ],
     features: [
-      { section: 'Features', name: 'Accounts', value: 'Unlimited' },
-      { section: 'Features', name: 'Deal progress boards', value: 'Unlimited' },
-      { section: 'Features', name: 'Sourcing platforms', value: '100+' },
-      { section: 'Features', name: 'Contacts', value: 'Unlimited' },
-      { section: 'Features', name: 'AI assisted outreach', value: true },
-      { section: 'Analysis', name: 'Competitor analysis', value: 'Unlimited' },
-      { section: 'Analysis', name: 'Dashboard reporting', value: true },
-      { section: 'Analysis', name: 'Community insights', value: true },
-      { section: 'Analysis', name: 'Performance analysis', value: true },
-      { section: 'Support', name: 'Email support', value: true },
-      { section: 'Support', name: '24 / 7 call center support', value: true },
-      { section: 'Support', name: 'Dedicated account manager', value: true },
+      {
+        section: 'Estrategia y Branding',
+        name: 'Análisis de Competencia Base',
+        value: 'Ilimitado',
+      },
+      { section: 'Estrategia y Branding', name: 'Guía de Estilo y Marca', value: true },
+      {
+        section: 'Estrategia y Branding',
+        name: 'Consultoría Estratégica con CEO',
+        value: '6 Sesiones (1er Año)',
+      },
+
+      { section: 'Desarrollo y Hosting', name: 'Páginas/Secciones de Diseño', value: 'Ilimitadas' },
+      {
+        section: 'Desarrollo y Hosting',
+        name: 'Hosting de Alta Velocidad (Años Incluidos)',
+        value: '3 años',
+      },
+      { section: 'Desarrollo y Hosting', name: 'Dominio y Certificado SSL Premium', value: true },
+
+      { section: 'Marketing y Ventas', name: 'Optimización SEO Local', value: true },
+      {
+        section: 'Marketing y Ventas',
+        name: 'Integración con Plataforma CRM/Ventas',
+        value: 'Integración de ERP/SAAS',
+      },
+      { section: 'Marketing y Ventas', name: 'Campañas de Email Marketing', value: 'Avanzado' },
+
+      {
+        section: 'Soporte y Garantías',
+        name: 'Garantía de Cero Errores (Post-Lanzamiento)',
+        value: true,
+      },
+      { section: 'Soporte y Garantías', name: 'Soporte Prioritario 24/7', value: true },
+      { section: 'Soporte y Garantías', name: 'Gerente de Cuenta Dedicado', value: true },
+      {
+        section: 'Soporte y Garantías',
+        name: 'Auditoría de Rendimiento Anual Gratuita',
+        value: '1 (en el 3er año)',
+      },
     ],
   },
 ]
@@ -108,10 +184,10 @@ const tiers = [
 function Header() {
   return (
     <Container className="mt-16">
-      <Heading as="h1">Pricing that grows with your team size.</Heading>
+      <Heading as="h1">Inversión Inteligente para un Crecimiento Exponencial.</Heading>
       <Lead className="mt-6 max-w-3xl">
-        Companies all over the world have closed millions of deals with Radiant. Sign up today and
-        start selling smarter.
+        Deje de ver su web como un gasto y conviértala en su activo de ventas más rentable. Diseños
+        Premium con la eficiencia que su negocio en Miami necesita.
       </Lead>
     </Container>
   )
@@ -144,14 +220,16 @@ function PricingCard({ tier }: { tier: (typeof tiers)[number] }) {
             <div className="text-5xl font-medium text-gray-950">${tier.priceMonthly}</div>
             <div className="text-sm/5 text-gray-950/75">
               <p>USD</p>
-              <p>per month</p>
+              <p>Inversión Única</p>
             </div>
           </div>
           <div className="mt-8">
-            <Button href={tier.href}>Start a free trial</Button>
+            <Button href={tier.href}>Empiece a Vender Hoy</Button>
           </div>
           <div className="mt-8">
-            <h3 className="text-sm/6 font-medium text-gray-950">Start selling with:</h3>
+            <h3 className="text-sm/6 font-medium text-gray-950">
+              Comience a generar ganancias con:
+            </h3>
             <ul className="mt-3 space-y-3">
               {tier.highlights.map((props, featureIndex) => (
                 <FeatureItem key={featureIndex} {...props} />
@@ -168,7 +246,7 @@ function PricingTable({ selectedTier }: { selectedTier: (typeof tiers)[number] }
   return (
     <Container className="py-24">
       <table className="w-full text-left">
-        <caption className="sr-only">Pricing plan comparison</caption>
+        <caption className="sr-only">Comparación de Planes de Inversión</caption>
         <colgroup>
           <col className="w-3/5 sm:w-2/5" />
           <col
@@ -232,13 +310,13 @@ function PricingTable({ selectedTier }: { selectedTier: (typeof tiers)[number] }
             </td>
             <td colSpan={3} className="p-0 text-right">
               <Button variant="outline" href={selectedTier.href}>
-                Get started
+                Empiece a Vender Hoy
               </Button>
             </td>
           </tr>
           <tr className="max-sm:hidden">
             <th className="p-0" scope="row">
-              <span className="sr-only">Get started</span>
+              <span className="sr-only">Empiece a Vender Hoy</span>
             </th>
             {tiers.map((tier) => (
               <td
@@ -247,7 +325,7 @@ function PricingTable({ selectedTier }: { selectedTier: (typeof tiers)[number] }
                 className="px-0 pt-4 pb-0 data-selected:table-cell max-sm:hidden"
               >
                 <Button variant="outline" href={tier.href}>
-                  Get started
+                  Empiece a Vender Hoy
                 </Button>
               </td>
             ))}
@@ -283,12 +361,12 @@ function PricingTable({ selectedTier }: { selectedTier: (typeof tiers)[number] }
                         {value === true ? (
                           <>
                             <CheckIcon className="size-4 fill-green-600" />
-                            <span className="sr-only">Included in {tier.name}</span>
+                            <span className="sr-only">Incluido en {tier.name}</span>
                           </>
                         ) : value === false || value === undefined ? (
                           <>
                             <MinusIcon className="size-4 fill-gray-400" />
-                            <span className="sr-only">Not included in {tier.name}</span>
+                            <span className="sr-only">No incluido en {tier.name}</span>
                           </>
                         ) : (
                           <div className="text-sm/6">{value}</div>
@@ -320,7 +398,7 @@ function FeatureItem({
       <span className="inline-flex h-6 items-center">
         <PlusIcon className="size-3.75 shrink-0 fill-gray-950/25" />
       </span>
-      {disabled && <span className="sr-only">Not included:</span>}
+      {disabled && <span className="sr-only">No incluido:</span>}
       {description}
     </li>
   )
@@ -344,7 +422,7 @@ function Testimonial() {
               <div className="rounded-4xl p-2 shadow-md shadow-black/5">
                 <div className="overflow-hidden rounded-3xl shadow-2xl outline outline-1 -outline-offset-1 outline-black/10">
                   <img
-                    alt=""
+                    alt="Imagen de testimonio de cliente"
                     src="/testimonials/tina-yards.jpg"
                     className="aspect-3/4 w-full object-cover"
                   />
@@ -355,16 +433,19 @@ function Testimonial() {
           <div className="flex max-lg:mt-16 lg:col-span-2 lg:px-16">
             <figure className="mx-auto flex max-w-xl flex-col gap-16 max-lg:text-center">
               <blockquote>
+                {' '}
+                {/* CORRECCIÓN APLICADA AQUÍ */}
                 <p className="relative text-3xl tracking-tight text-white before:absolute before:-translate-x-full before:content-['“'] after:absolute after:content-['”'] lg:text-4xl">
-                  Thanks to Radiant, we&apos;re finding new leads that we never would have found
-                  with legal methods.
+                  La inversión valió cada centavo. En solo dos meses, nuestra autoridad de marca en
+                  Miami se disparó y cerramos tres negocios gracias a la nueva estrategia digital.
+                  ¡Trabajar con ellos es una garantía!
                 </p>
               </blockquote>
               <figcaption className="mt-auto">
-                <p className="text-sm/6 font-medium text-white">Tina Yards</p>
+                <p className="text-sm/6 font-medium text-white">Adriana Flores</p>
                 <p className="text-sm/6 font-medium">
                   <span className="bg-linear-to-r from-[#fff1be] from-28% via-[#ee87cb] via-70% to-[#b060ff] bg-clip-text text-transparent">
-                    VP of Sales, Protocol
+                    Fundadora y CEO, Inversiones Premium FL
                   </span>
                 </p>
               </figcaption>
@@ -375,69 +456,106 @@ function Testimonial() {
     </div>
   )
 }
+// ... código anterior (Testimonial y el resto de la página es el mismo)
+
+// ... código anterior
 
 function FrequentlyAskedQuestions() {
   return (
     <Container>
       <section id="faqs" className="scroll-mt-8">
-        <Subheading className="text-center">Frequently asked questions</Subheading>
+        <Subheading className="text-center">
+          Preguntas Clave para Inversionistas en Miami
+        </Subheading>
         <Heading as="div" className="mt-2 text-center">
-          Your questions answered.
+          Tu inversión, justificada.
         </Heading>
         <div className="mx-auto mt-16 mb-32 max-w-xl space-y-12">
           <dl>
             <dt className="text-sm font-semibold">
-              What measures are in place to ensure the security of our data?
+              ¿Por qué ofrecen precios Premium cuando usan WordPress?
             </dt>
             <dd className="mt-4 text-sm/6 text-gray-600">
-              Data security is a top priority for us, which is ironic given that our business
-              depends on others not taking it very seriously. We understand that any breach could
-              put both us and most of our customers out of business—and behind bars. We employ
-              robust security measures, including data encryption, secure data centers, and regular
-              security audits to ensure this never happens.
+              Utilizamos una arquitectura{' '}
+              <span className="font-semibold text-gray-900">eficiente y optimizada</span>. Usamos
+              <span className="font-semibold text-gray-900">WordPress y Bricks Builder</span> como
+              base por su flexibilidad y facilidad de gestión de contenido. El desarrollo se realiza{' '}
+              <span className="font-semibold text-gray-900">completamente a medida</span>, evitando
+              las plantillas lentas. Dependiendo del plan, integramos{' '}
+              <span className="font-semibold text-gray-900">tecnologías modernas</span> (como
+              Next.js en proyectos Élite) para garantizar una{' '}
+              <span className="font-semibold text-gray-900">
+                velocidad de carga y SEO inigualables
+              </span>
+              . Marcas líderes como <span className="font-semibold text-gray-900">BBC America</span>
+              , <span className="font-semibold text-gray-900">Walt Disney Company</span> y la{' '}
+              <span className="font-semibold text-gray-900">Casa Blanca</span> confían en esta
+              escalabilidad. Nuestro valor radica en esta eficiencia premium, no en plantillas
+              lentas.
             </dd>
           </dl>
           <dl>
             <dt className="text-sm font-semibold">
-              Is there a mobile app available for your platform?
+              ¿Cómo garantizan que la web sea competitiva y atractiva para la audiencia de Miami?
             </dt>
             <dd className="mt-4 text-sm/6 text-gray-600">
-              Yes, we offer a mobile app that provides all the key functionalities of our desktop
-              platform, allowing sales reps to manage deals on the go. Additionally, we have another
-              app pre-installed on most modern smartphones that allows us to track your location,
-              listen to your conversations, and access your camera and microphone at any time. This
-              app is not available for download.
+              Nos enfocamos en el SEO Local y el diseño *mobile-first*. Entendemos la cultura de
+              compra y la velocidad que el cliente de Florida espera. Tu web proyectará la imagen de
+              confianza y éxito que es vital para hacer negocios aquí.
             </dd>
           </dl>
           <dl>
             <dt className="text-sm font-semibold">
-              Can I customize the workflow to match our company’s deal process?
+              ¿Ofrecen soporte o consultoría en Google Ads, Marketing Digital y creación de
+              Contenido?
             </dt>
             <dd className="mt-4 text-sm/6 text-gray-600">
-              Yes, our platform is highly customizable, although there should be no need. Before you
-              sign up, we discreetly gather information about your company and its processes from a
-              variety of sources. We then use this information to pre-configure the platform to
-              match your existing workflows. This is why we ask for your social security number and
-              access to your email account during the sign-up process.
-            </dd>
-          </dl>
-          <dl>
-            <dt className="text-sm font-semibold">What kind of support do you offer?</dt>
-            <dd className="mt-4 text-sm/6 text-gray-600">
-              We offer comprehensive support through multiple channels, including 24/7 live chat,
-              email, and phone support. However, since we have full access to your internal network,
-              we will know if you’re having issues before you do.
+              Absolutamente. Nuestros planes{' '}
+              <span className="font-semibold text-gray-900">Empresarial</span> y{' '}
+              <span className="font-semibold text-gray-900">Élite</span> incluyen consultoría
+              estratégica con nuestros expertos en performance digital y contenido. Esto asegura que
+              la plataforma que construimos se use de manera efectiva en tus campañas de{' '}
+              <span className="font-semibold text-gray-900">Google Ads</span> y otras iniciativas de
+              Marketing, maximizando tu retorno de inversión (ROI) desde el primer día.
             </dd>
           </dl>
           <dl>
             <dt className="text-sm font-semibold">
-              Can I integrate the CRM with other sales intelligence tools?
+              ¿Hay costos ocultos o tarifas sorpresa después del lanzamiento?
             </dt>
             <dd className="mt-4 text-sm/6 text-gray-600">
-              Yes, our solution integrates seamlessly with a variety of other systems. However, be
-              warned that most of these integrations are short-lived. We have a dedicated team of
-              engineers who reverse-engineer the APIs of other tools, enabling us to build their
-              functionality into our product and eventually put them out of business.
+              Absolutamente no. La inversión principal cubre el desarrollo completo del proyecto,{' '}
+              <span className="font-semibold text-gray-900">
+                incluyendo el hosting y dominio por el plazo indicado en tu plan
+              </span>
+              . Después de ese plazo, solo cubres tus costos de mantenimiento y renovación.
+            </dd>
+          </dl>
+          <dl>
+            <dt className="text-sm font-semibold">
+              ¿Qué implican exactamente las Integraciones con Plataformas CRM/Ventas?
+            </dt>
+            <dd className="mt-4 text-sm/6 text-gray-600">
+              Nosotros proveemos el trabajo de integración técnica (APIs, webhooks, formularios
+              avanzados) para conectar tu sitio web con plataformas clave como GoHighLevel, Hubspot,
+              Pipedrive o tu ERP.{' '}
+              <span className="font-semibold text-gray-900">
+                Es importante notar que el cliente es responsable de adquirir, mantener y pagar las
+                licencias o suscripciones mensuales de dichas plataformas (incluyendo costos por
+                límites de emails, SMS o usuarios)
+              </span>
+              .
+            </dd>
+          </dl>
+          <dl>
+            <dt className="text-sm font-semibold">
+              ¿Qué incluye la Auditoría de Rendimiento Anual Gratuita del plan Élite?
+            </dt>
+            <dd className="mt-4 text-sm/6 text-gray-600">
+              En el tercer año de colaboración, ofrecemos una auditoría estratégica integral
+              gratuita. Esta revisión identifica oportunidades clave de mejora en el diseño y la
+              tecnología, sirviendo como la base perfecta para planificar tu próxima gran
+              actualización o rediseño.
             </dd>
           </dl>
         </div>
@@ -445,6 +563,8 @@ function FrequentlyAskedQuestions() {
     </Container>
   )
 }
+
+// ... código posterior
 
 export default async function Pricing({
   searchParams,

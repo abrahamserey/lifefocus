@@ -10,20 +10,22 @@ function CallToAction() {
   return (
     <div className="relative pt-20 pb-16 text-center sm:py-24">
       <hgroup>
-        <Subheading>Get started</Subheading>
+        {/* Subtítulo: Foco en el resultado */}
+        <Subheading>Asegura el Futuro de tus Ingresos</Subheading>
         <p className="mt-6 text-3xl font-medium tracking-tight text-gray-950 sm:text-5xl">
-          Ready to dive in?
-          <br />
-          Start your free trial today.
+          Agenda tu Sesión Estratégica Gratuita
+          <br />Y Diseña tu Plan de Crecimiento.
         </p>
       </hgroup>
+      {/* Párrafo: Aclara el valor de la llamada y la inmediatez de la meta */}
       <p className="mx-auto mt-6 max-w-xs text-sm/6 text-gray-500">
-        Get the cheat codes for selling and unlock your team&apos;s revenue
-        potential.
+        En esta llamada de 30 minutos, mapearemos tu potencial de ingresos y te daremos los pasos
+        exactos para alcanzar el objetivo. Sin compromiso.
       </p>
       <div className="mt-6">
+        {/* Botón: Llamado a la acción claro y directo */}
         <Button className="w-full sm:w-auto" href="#">
-          Get started
+          Solicita tu Sesión
         </Button>
       </div>
     </div>
@@ -41,10 +43,7 @@ function SitemapLinks({ children }: { children: React.ReactNode }) {
 function SitemapLink(props: React.ComponentPropsWithoutRef<typeof Link>) {
   return (
     <li>
-      <Link
-        {...props}
-        className="font-medium text-gray-950 data-hover:text-gray-950/75"
-      />
+      <Link {...props} className="font-medium text-gray-950 data-hover:text-gray-950/75" />
     </li>
   )
 }
@@ -147,9 +146,7 @@ function SocialLinks() {
 
 function Copyright() {
   return (
-    <div className="text-sm/6 text-gray-950">
-      &copy; {new Date().getFullYear()} Radiant Inc.
-    </div>
+    <div className="text-sm/6 text-gray-950">&copy; {new Date().getFullYear()} Life Focus.</div>
   )
 }
 
