@@ -1,6 +1,7 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
@@ -56,5 +57,21 @@ export default buildConfig({
   }),
 
   sharp,
-  plugins: [],
+  plugins: [
+    s3Storage({
+      bucket: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME ?? '',
+      config: {
+        endpoint: `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL}/storage/v1/s3`,
+        credentials: {
+          accessKeyId: process.env.SUPABASE_ACCESS_KEY_ID ?? '',
+          secretAccessKey: process.env.SUPABASE_SECRET_ACCESS_KEY ?? '',
+        },
+        region: process.env.SUPABASE_REGION ?? 'us-east-1',
+        forcePathStyle: true,
+      },
+      collections: {
+        media: true,
+      },
+    }),
+  ],
 })
