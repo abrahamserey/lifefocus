@@ -16,15 +16,15 @@ import HomePage from './collections/HomePage' // 👈 default import, sin llaves
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const databaseUrl = process.env.DATABASE_URL
+const connectionString = process.env.DATABASE_CONNECTION_STRING
 
-if (!databaseUrl) {
-  throw new Error('❌ DATABASE_URL is not defined.')
+if (!connectionString) {
+  throw new Error('❌ DATABASE_CONNECTION_STRING is not defined.')
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  const safeUrl = databaseUrl.replace(/:(.+)@/, ':***@')
-  console.log('🔌 Using DATABASE_URL →', safeUrl)
+  const safeUrl = connectionString.replace(/:(.+)@/, ':***@')
+  console.log('🔌 Using DATABASE_CONNECTION_STRING →', safeUrl)
   console.log('----------------------------------------------')
 }
 
@@ -50,7 +50,7 @@ export default buildConfig({
 
   db: postgresAdapter({
     pool: {
-      connectionString: databaseUrl,
+      connectionString: connectionString,
     },
     schemaName: 'payload',
   }),
