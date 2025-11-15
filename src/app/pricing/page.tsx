@@ -414,7 +414,7 @@ function PlusIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function Testimonial() {
   return (
-    <div className="mx-2 my-24 rounded-4xl bg-gray-900 bg-[url(/dot-texture.svg)] pt-72 pb-24 lg:pt-36">
+    <div className="mx-2 my-24 rounded-4xl bg-slate-800 bg-[url(/dot-texture.svg)] pt-72 pb-24 lg:pt-36">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-[384px_1fr_1fr]">
           <div className="-mt-96 lg:-mt-52">
@@ -436,15 +436,14 @@ function Testimonial() {
                 {' '}
                 {/* CORRECCIÓN APLICADA AQUÍ */}
                 <p className="relative text-3xl tracking-tight text-white before:absolute before:-translate-x-full before:content-['“'] after:absolute after:content-['”'] lg:text-4xl">
-                  La inversión valió cada centavo. En solo dos meses, nuestra autoridad de marca en
-                  Miami se disparó y cerramos tres negocios gracias a la nueva estrategia digital.
-                  ¡Trabajar con ellos es una garantía!
+                  Gracias a LifeFocus, finalmente logré balancear mis prioridades. Ahora sé
+                  exactamente dónde enfocar mi energía cada día para alcanzar mis metas.
                 </p>
               </blockquote>
               <figcaption className="mt-auto">
-                <p className="text-sm/6 font-medium text-white">Adriana Flores</p>
+                <p className="text-sm/6 font-medium text-white">Elena Rodríguez</p>
                 <p className="text-sm/6 font-medium">
-                  <span className="bg-linear-to-r from-[#fff1be] from-28% via-[#ee87cb] via-70% to-[#b060ff] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#35A9D8] from-28% via-[#62B792] via-70% to-[#92C44B] bg-clip-text text-transparent">
                     Fundadora y CEO, Inversiones Premium FL
                   </span>
                 </p>

@@ -317,15 +317,15 @@ function Testimonial() {
       <figure className="relative p-10">
         <blockquote>
           <p className="relative text-xl/7 text-white before:absolute before:-translate-x-full before:content-['“'] after:absolute after:content-['”']">
-            “Nuestra nueva página web se paga sola. No solo se ve profesional, sino que el proceso
-            de captura de prospectos es impecable. ¡Es una inversión que genera un ROI real!”
+            Hemos logrado una claridad mental en el equipo sin precedentes en 6 meses. La estrategia
+            de LifeFocus es clave para la ejecución.
           </p>
         </blockquote>
         <figcaption className="mt-6 border-t border-white/20 pt-6">
-          <p className="text-sm/6 font-medium text-white">Nombre del Cliente de EE. UU.</p>
+          <p className="text-sm/6 font-medium text-white">Martina Winton</p>
           <p className="text-sm/6 font-medium">
-            <span className="bg-linear-to-r from-[#fff1be] from-28% via-[#ee87cb] via-70% to-[#b060ff] bg-clip-text text-transparent">
-              CEO, Empresa de Servicios en Miami
+            <span className="bg-gradient-to-r from-[#35A9D8] from-28% via-[#62B792] via-70% to-[#92C44B] bg-clip-text text-transparent">
+              Director de Innovación, Planeteria en Miami
             </span>
           </p>
         </figcaption>

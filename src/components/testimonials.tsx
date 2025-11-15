@@ -42,21 +42,21 @@ const testimonials = [
   },
   {
     img: '/testimonials/veronica-winton.jpg',
-    name: 'Martín Winton',
+    name: 'Martina Winton',
     title: 'Director de Innovación, Planeteria',
     quote:
       'Hemos logrado una claridad mental en el equipo sin precedentes en 6 meses. La estrategia de LifeFocus es clave para la ejecución.',
   },
   {
     img: '/testimonials/dillon-lenora.jpg',
-    name: 'Luisa Dilon',
+    name: 'Patric Dilon',
     title: 'CEO, Detax',
     quote:
       'Pude reemplazar el 80% de mi estrés con rutinas de alta efectividad gracias al método LifeFocus.',
   },
   {
     img: '/testimonials/harriet-arron.jpg',
-    name: 'Héctor Aarón',
+    name: 'Astrid Aarón',
     title: 'Estratega de Producto, Commit',
     quote:
       'He cumplido todos mis objetivos sin sentirme abrumado en meses. LifeFocus te devuelve el control.',
@@ -144,7 +144,7 @@ function TestimonialCard({
         <figcaption className="mt-6 border-t border-white/20 pt-6">
           <p className="text-sm/6 font-medium text-white">{name}</p>
           <p className="text-sm/6 font-medium">
-            <span className="bg-linear-to-r from-[#fff1be] from-28% via-[#ee87cb] via-70% to-[#b060ff] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#35A9D8] from-28% via-[#62B792] via-70% to-[#92C44B] bg-clip-text text-transparent">
               {title}
             </span>
           </p>
@@ -165,7 +165,7 @@ function CallToAction() {
       <div className="mt-2">
         <Link
           href="#"
-          className="inline-flex items-center gap-2 text-sm/6 font-medium text-pink-600"
+          className="inline-flex items-center gap-2 text-sm/6 font-medium text-lime-700 data-hover:underline"
         >
           Comenzar ahora
           <ArrowLongRightIcon className="size-5" />

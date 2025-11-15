@@ -30,8 +30,9 @@ export function BentoCard({
       className={clsx(
         className,
         'group relative flex flex-col overflow-hidden rounded-lg',
-        'bg-white shadow-xs ring-1 ring-black/5',
-        'data-dark:bg-gray-800 data-dark:ring-white/15',
+        'bg-white shadow-xs ring-1 bg-slate-800/5',
+        // Aquí reemplazaste bg-gray-700 por bg-slate-800
+        'data-dark:bg-slate-800 data-dark:ring-white/15',
       )}
     >
       <div className="relative h-80 shrink-0">

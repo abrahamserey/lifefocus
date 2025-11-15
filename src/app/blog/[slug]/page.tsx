@@ -8,6 +8,7 @@ import { Navbar } from '@/components/navbar'
 import { Heading, Subheading } from '@/components/text'
 import { ChevronLeftIcon } from '@heroicons/react/16/solid'
 import dayjs from 'dayjs'
+import 'dayjs/locale/es'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -303,9 +304,9 @@ function serialize(nodes: any[]): React.ReactNode {
 
       default:
         return (
-          <p key={index} className="my-10 text-base/8">
+          <div key={index} className="my-10 text-base/8">
             {children}
-          </p>
+          </div>
         )
     }
   })
@@ -374,7 +375,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <Container>
         <Navbar />
         <Subheading className="mt-16">
-          {dayjs(post.publishedAt).format('dddd, MMMM D, YYYY')}
+          {dayjs(post.publishedAt).locale('es').format('dddd, D [de] MMMM [de] YYYY')}
         </Subheading>
         <Heading as="h1" className="mt-2">
           {post.title}
@@ -422,11 +423,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     src={mainImageUrl}
                     className="aspect-[3/2] w-full rounded-2xl object-cover shadow-xl"
                   />
-                  {DEBUG && (
-                    <div className="mt-2 text-xs text-green-600">
-                      ✅ Image loaded: {mainImageUrl}
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -450,7 +446,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               <div className="mt-10">
                 <Button variant="outline" href="/blog">
                   <ChevronLeftIcon className="size-4" />
-                  Back to blog
+                  Volver al blog
                 </Button>
               </div>
             </div>

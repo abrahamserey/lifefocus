@@ -93,9 +93,11 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
+    settings: Setting;
     'home-page': HomePage;
   };
   globalsSelect: {
+    settings: SettingsSelect<false> | SettingsSelect<true>;
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
   };
   locale: null;
@@ -511,6 +513,53 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: number;
+  contactForm: {
+    /**
+     * El email que recibirá las notificaciones del formulario.
+     */
+    adminEmail: string;
+    /**
+     * El email desde el que se envían los correos. Debe ser un dominio verificado en Resend (ej. "web@lifefocus.com").
+     */
+    fromEmail: string;
+    /**
+     * Opcional. Emails adicionales que recibirán copia, separados por coma (ej. "info@lifefocus.com, ventas@lifefocus.com").
+     */
+    ccEmails?: string | null;
+    adminSubject: string;
+    /**
+     * Usa las variables {{firstName}}, {{lastName}}, {{email}}, {{phone}}, {{company}}, y {{message}}. Se reemplazarán automáticamente.
+     */
+    adminMessageTemplate: string;
+    enableClientAutoresponse?: boolean | null;
+    clientSubject?: string | null;
+    /**
+     * Usa {{firstName}} para personalizar.
+     */
+    clientMessageTemplate?: string | null;
+  };
+  /**
+   * Configuración para el servicio anti-spam de Google en el formulario de contacto.
+   */
+  recaptcha: {
+    /**
+     * Esta es la clave "Site Key". Es segura de usar en el frontend (navegador del usuario).
+     */
+    recaptchaSiteKey: string;
+    /**
+     * ¡Esta es la "Secret Key"! El servidor la usará para verificar al usuario. Mantenla privada.
+     */
+    recaptchaSecretKey: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page".
  */
 export interface HomePage {
@@ -530,6 +579,9 @@ export interface HomePage {
   };
   feature_section: {
     heading: string;
+    /**
+     * Sube la imagen que reemplazará a /screenshots/app2.png
+     */
     screenshot_image: number | Media;
   };
   bento_section: {
@@ -541,7 +593,14 @@ export interface HomePage {
           title: string;
           description: string;
           graphic_type?: ('background_image' | 'component') | null;
+          /**
+           * Sube la imagen para el gráfico (ej. profile2.png, competitors.png)
+           */
           background_image?: (number | null) | Media;
+          /**
+           * Elige el componente visual para esta tarjeta.
+           */
+          component_key?: ('keyboard' | 'logo_cluster' | 'map') | null;
           id?: string | null;
         }[]
       | null;
@@ -555,13 +614,47 @@ export interface HomePage {
           title: string;
           description: string;
           graphic_type?: ('background_image' | 'component') | null;
+          /**
+           * Sube la imagen para el gráfico (ej. networking2.png, engagement.png)
+           */
           background_image?: (number | null) | Media;
+          /**
+           * Elige el componente visual para esta tarjeta.
+           */
+          component_key?: ('logo_timeline' | 'linked_avatars') | null;
           id?: string | null;
         }[]
       | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  contactForm?:
+    | T
+    | {
+        adminEmail?: T;
+        fromEmail?: T;
+        ccEmails?: T;
+        adminSubject?: T;
+        adminMessageTemplate?: T;
+        enableClientAutoresponse?: T;
+        clientSubject?: T;
+        clientMessageTemplate?: T;
+      };
+  recaptcha?:
+    | T
+    | {
+        recaptchaSiteKey?: T;
+        recaptchaSecretKey?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -604,6 +697,7 @@ export interface HomePageSelect<T extends boolean = true> {
               description?: T;
               graphic_type?: T;
               background_image?: T;
+              component_key?: T;
               id?: T;
             };
       };
@@ -620,6 +714,7 @@ export interface HomePageSelect<T extends boolean = true> {
               description?: T;
               graphic_type?: T;
               background_image?: T;
+              component_key?: T;
               id?: T;
             };
       };

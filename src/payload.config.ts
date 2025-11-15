@@ -12,7 +12,8 @@ import { Media } from './collections/Media'
 import { Authors } from './collections/Authors'
 import { Categories } from './collections/Categories'
 import { Posts } from './collections/Posts'
-import HomePage from './collections/HomePage' // 👈 default import, sin llaves
+import HomePage from './collections/globals/HomePage' // 👈 default import, sin llaves
+import { Settings } from './collections/globals/Settings' // <-- 1. Importa
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,7 +42,7 @@ export default buildConfig({
   collections: [Users, Media, Authors, Categories, Posts],
 
   // 👇 Aquí van los Globals
-  globals: [HomePage],
+  globals: [Settings, HomePage],
 
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
