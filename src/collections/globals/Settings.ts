@@ -11,9 +11,11 @@ export const Settings: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
+        // ─────────────────────────────────────────────
+        // TAB: FORMULARIO DE CONTACTO
+        // ─────────────────────────────────────────────
         {
           label: 'Formulario de Contacto',
-          // --- Tu pestaña de Formulario de Contacto (sin cambios) ---
           fields: [
             {
               name: 'contactForm',
@@ -108,10 +110,13 @@ El equipo de Lifefocus`,
           ],
         },
 
-        // --- ¡NUEVA PESTAÑA AÑADIDA AQUÍ! ---
+        // ─────────────────────────────────────────────
+        // TAB: SEGURIDAD Y ANTI-SPAM
+        // ─────────────────────────────────────────────
         {
           label: 'Seguridad y Anti-Spam',
           fields: [
+            // reCAPTCHA
             {
               name: 'recaptcha',
               label: 'Google reCAPTCHA v3',
@@ -125,17 +130,17 @@ El equipo de Lifefocus`,
                   name: 'recaptchaSiteKey',
                   label: 'Clave del Sitio (Pública)',
                   type: 'text',
-                  required: true,
+                  required: false,
                   admin: {
                     description:
-                      'Esta es la clave "Site Key". Es segura de usar en el frontend (navegador del usuario).',
+                      'Esta es la clave "Site Key". Es segura de usar en el frontend (navegador del usuario). Get Start in google.com/recaptcha/',
                   },
                 },
                 {
                   name: 'recaptchaSecretKey',
                   label: 'Clave Secreta (Privada)',
                   type: 'text',
-                  required: true,
+                  required: false,
                   admin: {
                     description:
                       '¡Esta es la "Secret Key"! El servidor la usará para verificar al usuario. Mantenla privada.',
@@ -143,9 +148,53 @@ El equipo de Lifefocus`,
                 },
               ],
             },
+
+            // Resend
+            {
+              name: 'resend',
+              label: 'Resend (Email API)',
+              type: 'group',
+              admin: {
+                description:
+                  'Configuración del proveedor de correo Resend.com para el envío de emails del formulario.',
+              },
+              fields: [
+                {
+                  name: 'enableResend',
+                  label: 'Activar envío con Resend',
+                  type: 'checkbox',
+                  defaultValue: true,
+                },
+                {
+                  name: 'resendApiKey',
+                  label: 'Resend API Key',
+                  type: 'text',
+                  admin: {
+                    description:
+                      'Clave secreta de Resend (re_...). Lo ideal es guardarla también en la variable de entorno RESEND_API_KEY.',
+                  },
+                },
+                {
+                  name: 'resendFromName',
+                  label: 'Nombre del remitente (From Name)',
+                  type: 'text',
+                  admin: {
+                    description: 'Ejemplo: "Lifefocus" o "Equipo Lifefocus".',
+                  },
+                },
+                {
+                  name: 'resendFromEmail',
+                  label: 'Email remitente para Resend',
+                  type: 'email',
+                  admin: {
+                    description:
+                      'Debe ser un remitente verificado en Resend (ej: "web@lifefocus.com"). Si se deja vacío, se usará el "fromEmail" del Formulario de Contacto.',
+                  },
+                },
+              ],
+            },
           ],
         },
-        // --- FIN DE LA NUEVA PESTAÑA ---
       ],
     },
   ],

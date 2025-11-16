@@ -1,67 +1,71 @@
-// Ruta: src/app/contact/ContactPageClient.tsx (¡NUEVO ARCHIVO!)
+// Ruta: src/app/contact/ContactPageClient.tsx
 
-'use client' // ¡Muy importante! Esto lo convierte en Client Component
+'use client'
 
 import { useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { Button } from '@/components/button'
-import ReCAPTCHA from 'react-google-recaptcha'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 
-// --- Definimos los estados del formulario ---
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
-// --- Componente Interno del Formulario ---
-// Usamos un componente interno para poder usar el hook 'useGoogleReCaptcha'
-function ContactForm() {
+type ContactFormProps = {
+  recaptchaEnabled: boolean
+}
+
+function ContactForm({ recaptchaEnabled }: ContactFormProps) {
   const [status, setStatus] = useState<FormStatus>('idle')
   const [errorMessage, setErrorMessage] = useState('')
-
-  // Hook de reCAPTCHA
   const { executeRecaptcha } = useGoogleReCaptcha()
 
-  // Manejador del envío
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setStatus('loading')
     setErrorMessage('')
 
-    // 1. Verificar el hook de reCAPTCHA
-    if (!executeRecaptcha) {
-      setErrorMessage('Error al cargar reCAPTCHA. Refresca la página e intenta de nuevo.')
-      setStatus('error')
-      return
-    }
-
     try {
-      // 2. Obtener el token de reCAPTCHA
-      const recaptchaToken = await executeRecaptcha('contact_form')
+      let recaptchaToken: string | undefined
+
+      // 1. Solo ejecutamos reCAPTCHA si está habilitado
+      if (recaptchaEnabled) {
+        if (!executeRecaptcha) {
+          setStatus('error')
+          setErrorMessage(
+            'Error al cargar reCAPTCHA. Por favor, recarga la página e inténtalo de nuevo.',
+          )
+          return
+        }
+
+        recaptchaToken = await executeRecaptcha('contact_form')
+      }
 
       const formData = new FormData(event.currentTarget)
-      const data = Object.fromEntries(formData.entries())
 
-      // 3. Añadir el token a los datos que enviamos
-      const dataWithToken = {
-        ...data,
+      const payload = {
+        firstName: (formData.get('firstName') as string) ?? '',
+        lastName: (formData.get('lastName') as string) ?? '',
+        company: (formData.get('company') as string) ?? '',
+        email: (formData.get('email') as string) ?? '',
+        phone: (formData.get('phone') as string) ?? '',
+        message: (formData.get('message') as string) ?? '',
         recaptchaToken,
       }
 
-      // 4. Enviar todo al backend (que ahora verifica el token)
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(dataWithToken),
+        body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
-        const errorData = await response.json()
+        const errorData = await response.json().catch(() => ({}))
         throw new Error(errorData.error || 'Algo salió mal en el servidor')
       }
 
       setStatus('success')
-      event.currentTarget.reset() // Limpia el formulario
+      event.currentTarget.reset()
     } catch (error) {
       setStatus('error')
       if (error instanceof Error) {
@@ -72,7 +76,6 @@ function ContactForm() {
     }
   }
 
-  // --- JSX del Formulario (Traducido y con validación) ---
   return (
     <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
       <div
@@ -91,13 +94,13 @@ function ContactForm() {
       <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
-            <label htmlFor="first-name" className="block text-sm/6 font-semibold text-gray-900">
+            <label htmlFor="firstName" className="block text-sm/6 font-semibold text-gray-900">
               Nombre
             </label>
             <div className="mt-2.5">
               <input
-                id="first-name"
-                name="first-name"
+                id="firstName"
+                name="firstName"
                 type="text"
                 autoComplete="given-name"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -106,13 +109,13 @@ function ContactForm() {
             </div>
           </div>
           <div>
-            <label htmlFor="last-name" className="block text-sm/6 font-semibold text-gray-900">
+            <label htmlFor="lastName" className="block text-sm/6 font-semibold text-gray-900">
               Apellido
             </label>
             <div className="mt-2.5">
               <input
-                id="last-name"
-                name="last-name"
+                id="lastName"
+                name="lastName"
                 type="text"
                 autoComplete="family-name"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
@@ -150,7 +153,7 @@ function ContactForm() {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="phone-number" className="block text-sm/6 font-semibold text-gray-900">
+            <label htmlFor="phone" className="block text-sm/6 font-semibold text-gray-900">
               Número de teléfono (Opcional)
             </label>
             <div className="mt-2.5">
@@ -159,13 +162,13 @@ function ContactForm() {
                   <select
                     id="country"
                     name="country"
-                    autoComplete="country"
                     aria-label="Country"
                     className="col-start-1 row-start-1 w-full appearance-none rounded-md py-2 pr-7 pl-3.5 text-base text-gray-500 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                   >
-                    <option>US</option>
-                    <option>CA</option>
-                    <option>EU</option>
+                    <option value="">País</option>
+                    <option value="US">US</option>
+                    <option value="CA">CA</option>
+                    <option value="EU">EU</option>
                   </select>
                   <ChevronDownIcon
                     aria-hidden="true"
@@ -173,8 +176,8 @@ function ContactForm() {
                   />
                 </div>
                 <input
-                  id="phone-number"
-                  name="phone-number"
+                  id="phone"
+                  name="phone"
                   type="text"
                   placeholder="123-456-7890"
                   className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
@@ -192,7 +195,6 @@ function ContactForm() {
                 name="message"
                 rows={4}
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
-                defaultValue={''}
                 required
               />
             </div>
@@ -214,7 +216,7 @@ function ContactForm() {
             <label htmlFor="agree-to-policies" className="text-sm/6 text-gray-600">
               Al seleccionar esto, aceptas nuestra{' '}
               <a
-                href="/privacy" // Asume que tienes una página de privacidad
+                href="/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold whitespace-nowrap bg-lime-700/10 px-1.5 py-0.5 text-lime-700 hover:bg-lime-700/20"
@@ -245,21 +247,19 @@ function ContactForm() {
   )
 }
 
-// --- Componente Padre (Exportado) ---
-// Este componente recibe la clave del Server Component
-// y se la pasa al Provider de reCAPTCHA.
+// --- Componente Padre exportado ---
+// Si hay recaptchaSiteKey => usa reCAPTCHA v3
+// Si no hay => el formulario funciona sin reCAPTCHA
 export function ContactPageClient({ recaptchaSiteKey }: { recaptchaSiteKey?: string }) {
-  if (!recaptchaSiteKey) {
-    return (
-      <div className="py-24 text-center text-red-600">
-        Error de Configuración: Falta la clave de sitio de reCAPTCHA.
-      </div>
-    )
+  const recaptchaEnabled = Boolean(recaptchaSiteKey && recaptchaSiteKey.trim().length > 0)
+
+  if (!recaptchaEnabled) {
+    return <ContactForm recaptchaEnabled={false} />
   }
 
   return (
-    <GoogleReCaptchaProvider reCaptchaKey={recaptchaSiteKey}>
-      <ContactForm />
+    <GoogleReCaptchaProvider reCaptchaKey={recaptchaSiteKey!}>
+      <ContactForm recaptchaEnabled={true} />
     </GoogleReCaptchaProvider>
   )
 }

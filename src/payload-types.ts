@@ -545,15 +545,33 @@ export interface Setting {
   /**
    * Configuración para el servicio anti-spam de Google en el formulario de contacto.
    */
-  recaptcha: {
+  recaptcha?: {
     /**
-     * Esta es la clave "Site Key". Es segura de usar en el frontend (navegador del usuario).
+     * Esta es la clave "Site Key". Es segura de usar en el frontend (navegador del usuario). Get Start in google.com/recaptcha/
      */
-    recaptchaSiteKey: string;
+    recaptchaSiteKey?: string | null;
     /**
      * ¡Esta es la "Secret Key"! El servidor la usará para verificar al usuario. Mantenla privada.
      */
-    recaptchaSecretKey: string;
+    recaptchaSecretKey?: string | null;
+  };
+  /**
+   * Configuración del proveedor de correo Resend.com para el envío de emails del formulario.
+   */
+  resend?: {
+    enableResend?: boolean | null;
+    /**
+     * Clave secreta de Resend (re_...). Lo ideal es guardarla también en la variable de entorno RESEND_API_KEY.
+     */
+    resendApiKey?: string | null;
+    /**
+     * Ejemplo: "Lifefocus" o "Equipo Lifefocus".
+     */
+    resendFromName?: string | null;
+    /**
+     * Debe ser un remitente verificado en Resend (ej: "web@lifefocus.com"). Si se deja vacío, se usará el "fromEmail" del Formulario de Contacto.
+     */
+    resendFromEmail?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -651,6 +669,14 @@ export interface SettingsSelect<T extends boolean = true> {
     | {
         recaptchaSiteKey?: T;
         recaptchaSecretKey?: T;
+      };
+  resend?:
+    | T
+    | {
+        enableResend?: T;
+        resendApiKey?: T;
+        resendFromName?: T;
+        resendFromEmail?: T;
       };
   updatedAt?: T;
   createdAt?: T;
