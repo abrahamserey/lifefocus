@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-} from '@headlessui/react'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars2Icon } from '@heroicons/react/24/solid'
 import { motion } from 'framer-motion'
 import { Link } from './link'
@@ -15,7 +11,7 @@ const links = [
   { href: '/pricing', label: 'Pricing' },
   { href: '/company', label: 'Company' },
   { href: '/blog', label: 'Blog' },
-  { href: '/login', label: 'Login' },
+  { href: '/contact', label: 'Contact' },
 ]
 
 function DesktopNav() {
@@ -86,11 +82,7 @@ export function Navbar({ banner }: { banner?: React.ReactNode }) {
                 <Logo className="h-9" />
               </Link>
             </PlusGridItem>
-            {banner && (
-              <div className="relative hidden items-center py-3 lg:flex">
-                {banner}
-              </div>
-            )}
+            {banner && <div className="relative hidden items-center py-3 lg:flex">{banner}</div>}
           </div>
           <DesktopNav />
           <MobileNavButton />
