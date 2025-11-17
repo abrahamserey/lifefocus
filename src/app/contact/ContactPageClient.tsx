@@ -1,5 +1,3 @@
-// Ruta: src/app/contact/ContactPageClient.tsx
-
 'use client'
 
 import { useState } from 'react'
@@ -26,7 +24,6 @@ function ContactForm({ recaptchaEnabled }: ContactFormProps) {
     try {
       let recaptchaToken: string | undefined
 
-      // 1. Solo ejecutamos reCAPTCHA si está habilitado
       if (recaptchaEnabled) {
         if (!executeRecaptcha) {
           setStatus('error')
@@ -35,7 +32,6 @@ function ContactForm({ recaptchaEnabled }: ContactFormProps) {
           )
           return
         }
-
         recaptchaToken = await executeRecaptcha('contact_form')
       }
 
@@ -65,7 +61,12 @@ function ContactForm({ recaptchaEnabled }: ContactFormProps) {
       }
 
       setStatus('success')
-      event.currentTarget.reset()
+
+      // Resetear formulario de forma segura
+      const form = event.currentTarget
+      if (form) {
+        setTimeout(() => form.reset(), 100)
+      }
     } catch (error) {
       setStatus('error')
       if (error instanceof Error) {
@@ -247,9 +248,6 @@ function ContactForm({ recaptchaEnabled }: ContactFormProps) {
   )
 }
 
-// --- Componente Padre exportado ---
-// Si hay recaptchaSiteKey => usa reCAPTCHA v3
-// Si no hay => el formulario funciona sin reCAPTCHA
 export function ContactPageClient({ recaptchaSiteKey }: { recaptchaSiteKey?: string }) {
   const recaptchaEnabled = Boolean(recaptchaSiteKey && recaptchaSiteKey.trim().length > 0)
 

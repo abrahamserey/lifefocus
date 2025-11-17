@@ -7,12 +7,12 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '3001', // <-- Asegúrate de que sea el puerto de tu PAYLOAD
+        port: '3001',
         pathname: '/api/media/**',
       },
     ],
   },
-  // Your Next.js config here
+
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
@@ -22,6 +22,9 @@ const nextConfig = {
 
     return webpackConfig
   },
+
+  // ✅ Corrección: Movido de experimental a nivel raíz
+  serverExternalPackages: ['resend'],
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
